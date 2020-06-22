@@ -1,0 +1,12 @@
+{
+    "name": "language-cylc",
+    "version": "0.0.0",
+    "description": "Atom language package for Cylc workflow configuration files",
+    "keywords": [],
+    "repository": "https://github.com/cylc/language-cylc",
+    "license": "GPL-3.0",
+    "engines": {
+        "atom": ">=1.0.0 <2.0.0"
+    },
+    "dependencies": {}
+}
