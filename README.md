@@ -14,20 +14,14 @@ Check [here](https://github.com/cylc/cylc-flow/issues/2752) for info on supporte
 
 ## Installation
 
-Currently, the only way to install is to clone the repository into your `.atom/` directory:
-```
-cd `~/.atom/`
-git clone --recurse-submodules https://github.com/cylc/language-cylc.git
-```
-Note the `--recurse-submodules` option is necessary. Downloading the source repository as a ZIP won't work.
+Install from the Atom settings, [the Atom website](https://atom.io/packages/language-cylc), or by running `apm install language-cylc`.
 
-Then, in Atom, go to `Edit > Config...` and add the desired suite file extensions to your Atom config file under `core.customFileTypes.source.cylc`, like this:
+By default, only files called `suite.rc` and `suite.rc.processed` (and with the future Cylc 8 extension `.cylc`) will use the package. If you want all `.rc` files to use it: in Atom, go to `Edit > Config...` and add the desired extension to your Atom config file under `core.customFileTypes.source.cylc`, like this:
 ```cson
 "*":
   core:
     customFileTypes:
       "source.cylc": [
-        "cylc"
         "rc"
       ]
 ```
@@ -43,3 +37,12 @@ This repo includes the [cylc/cylc-textmate-grammar](https://github.com/cylc/cylc
 The cylc-textmate-grammar repo contains a JSON TextMate grammar file which is used by Atom for syntax highlighting (symlinked to by `/grammars/cylc.json`). Read the [Atom guide on creating a TextMate grammar](https://flight-manual.atom.io/hacking-atom/sections/creating-a-legacy-textmate-grammar/) for more information. **Note:** do not edit the JSON file when contributing; instead you should edit the JavaScript grammar file and build it, as explained in the [contributing](https://github.com/cylc/cylc-textmate-grammar#contributing) section of cylc-texmate-grammar. Any edits will be part of that repo as opposed to this repo.
 
 On the other hand, any contributions to Atom-specific features are to be made in this repo, not the submodule.
+
+To install a development copy of the package:
+```
+git clone --recurse-submodules https://github.com/cylc/language-cylc.git
+cd language-cylc
+apm link --dev
+```
+The `--recurse-submodules` option automatically initialises the cylc-textmate-grammar submodule. `apm link --dev` symlinks the clone to `~/.atom/dev/` so that it is loaded when you run Atom in dev mode.
+
