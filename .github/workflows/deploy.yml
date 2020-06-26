@@ -32,9 +32,8 @@ jobs:
 
     - name: Publish
       env:
-        TOKEN: ${{ secrets.ATOM_TOKEN }}
+        ATOM_ACCESS_TOKEN: ${{ secrets.ATOM_TOKEN }}
       run: |
-        apm login --token "$TOKEN"
         apm publish --tag "$VERSION_TAG"
 
     - name: Delete tag on failure
