@@ -10,15 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-    - name: Install apm (with Atom)
-      env:
-        TEMP_DEB: atom-amd64.deb
-      run: |
-        wget -nv -O "$TEMP_DEB" https://atom.io/download/deb &&
-        sudo apt -qq install "$TEMP_DEB"
-        rm -f "$TEMP_DEB"
-        apm --version
-
     - name: Checkout repo
       uses: actions/checkout@28c7f3d2b5162b5ddd3dfd9a45aa55eaf396478b # v2.3.1
       with:
@@ -29,6 +20,15 @@ jobs:
         tag=$( node ./.github/bin/get-version-tag ${{ github.ref }} )
         echo "Tag: ${tag}"
         echo "::set-env name=VERSION_TAG::$tag"
+
+    - name: Install apm (with Atom)
+      env:
+        TEMP_DEB: atom-amd64.deb
+      run: |
+        wget -nv -O "$TEMP_DEB" https://atom.io/download/deb &&
+        sudo apt -qq install "./$TEMP_DEB"
+        rm -f "$TEMP_DEB"
+        apm --version
 
     - name: Publish
       env:
