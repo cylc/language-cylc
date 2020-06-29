@@ -1,5 +1,7 @@
 # Cylc language package for Atom
 
+![Check build](https://github.com/cylc/language-cylc/workflows/Check%20build/badge.svg?branch=master&event=push)
+
 An Atom extension that provides language support for Cylc workflow configuration files.
 
 ## Features
