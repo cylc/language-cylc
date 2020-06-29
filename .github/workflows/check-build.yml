@@ -1,0 +1,31 @@
+name: Check build
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@28c7f3d2b5162b5ddd3dfd9a45aa55eaf396478b # v2.3.1
+      with:
+        submodules: true
+
+    - name: Setup Node.js
+      uses: actions/setup-node@44c9c187283081e4e88b54b0efad9e9d468165a4 # v1.4.2
+      with:
+        node-version: '12'
+
+    - name: Build
+      run: |
+        mv ./grammars/cylc.json tmLang_copy.json
+        npm run build
+
+    - name: Check grammar file matches build output
+      run: diff -Z ./grammars/cylc.json tmLang_copy.json

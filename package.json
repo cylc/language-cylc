@@ -6,5 +6,8 @@
     "license": "GPL-3.0",
     "engines": {
         "atom": ">=1.0.0 <2.0.0"
+    },
+    "scripts": {
+        "build": "npm run --prefix ./cylc-textmate-grammar/ build && cp --remove-destination ./cylc-textmate-grammar/cylc.tmLanguage.json ./grammars/cylc.json && echo 'grammars/cylc.json successfully updated'"
     }
 }
