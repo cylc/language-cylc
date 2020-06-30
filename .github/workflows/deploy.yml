@@ -30,6 +30,21 @@ jobs:
         rm -f "$TEMP_DEB"
         apm --version
 
+    - name: Prepare grammar file & push updated release # Has to be before Publish step
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+        git checkout -b "latest-release"
+        cp --remove-destination ./cylc-textmate-grammar/cylc.tmLanguage.json ./grammars/cylc.json
+        echo "grammars/cylc.json symlink updated to hard copy"
+
+        git commit -a -m "CI release" -m "Workflow: ${{ github.workflow }}, run: ${{ github.run_number }}"
+
+        git push -f origin latest-release
+        # Update tag on origin to this commit:
+        git push -f origin HEAD:${{ github.ref }}
+
     - name: Publish
       env:
         ATOM_ACCESS_TOKEN: ${{ secrets.ATOM_TOKEN }}
